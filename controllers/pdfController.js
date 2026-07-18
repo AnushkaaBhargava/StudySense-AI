@@ -1,6 +1,8 @@
 import { extractTextFromPDF } from "../services/pdfService.js";
 import { askGemini } from "../services/geminiService.js";
 import {createChunks} from "../utils/createChunks.js";
+import Document from "../models/Document.js";
+import {generateEmbeddings} from "../services/embeddingService.js";
 
 export const uploadPDF = async (req, res) => {
   try {
@@ -26,8 +28,22 @@ export const uploadPDF = async (req, res) => {
 
       const summary=await askGemini(prompt);
 
+      for(const chunk of chunks){
+          
+          const embedding=await generateEmbeddings(chunk.text);
+          chunk.embedding=embedding
+      }
+
+      const document= await Document.create({
+        fileName:req.file.originalname,
+        summary,chunks
+      })
+
     res.status(200).json({
-      summary
+
+    message:"Document uploaded successfully",
+
+    document
     });
 
   } catch (error) {

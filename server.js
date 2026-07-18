@@ -2,8 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import aiRoutes from "./routes/aiRoutes.js";
 import pdfRoutes from "./routes/pdfRoutes.js";
+import { connectDB } from "./config/db.js";
 
 dotenv.config();
+
+await connectDB();
 
 const app = express();
 
