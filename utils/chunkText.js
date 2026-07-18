@@ -1,4 +1,4 @@
-export function chunkText(text,chunksize=800){
+export function chunkText(text,chunksize=50){
 
     const words=text.split(/\s+/);
 

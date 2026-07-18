@@ -9,6 +9,8 @@ const ai=new GoogleGenAI({
 
 export async function generateEmbeddings(text){
 
+      console.log("Embedding received:", text);
+
     const response = await ai.models.embedContent({
     model: "gemini-embedding-2",
     contents: text,

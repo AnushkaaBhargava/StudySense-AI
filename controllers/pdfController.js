@@ -2,6 +2,7 @@ import { extractTextFromPDF } from "../services/pdfService.js";
 import { askGemini } from "../services/geminiService.js";
 import {createChunks} from "../utils/createChunks.js";
 import Document from "../models/Document.js";
+import Chunk from "../models/Chunk.js";
 import {generateEmbeddings} from "../services/embeddingService.js";
 
 export const uploadPDF = async (req, res) => {
@@ -15,7 +16,6 @@ export const uploadPDF = async (req, res) => {
     const extractedText = await extractTextFromPDF(req.file.buffer);
 
     const chunks=createChunks(extractedText);
-    console.log(chunks);
 
     const prompt= `
        You are an expert study assistant.
@@ -27,17 +27,28 @@ export const uploadPDF = async (req, res) => {
       `;
 
       const summary=await askGemini(prompt);
-
-      for(const chunk of chunks){
-          
-          const embedding=await generateEmbeddings(chunk.text);
-          chunk.embedding=embedding
-      }
+       
+       await Promise.all(
+       chunks.map(async (chunk) => {
+          chunk.embedding = await generateEmbeddings(chunk.text);
+           })
+         );
 
       const document= await Document.create({
         fileName:req.file.originalname,
-        summary,chunks
-      })
+        summary
+      });
+
+      await Promise.all(
+        chunks.map((chunk) =>
+          Chunk.create({
+            documentId: document._id,
+            chunkId: chunk.chunkId,
+            text: chunk.text,
+            embedding: chunk.embedding,
+            })
+           )
+         );
 
     res.status(200).json({
 

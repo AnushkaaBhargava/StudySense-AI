@@ -1,6 +1,17 @@
-import { generateEmbeddings} from "./services/embeddingService.js";
+import dotenv from "dotenv";
+import { connectDB } from "./config/db.js";
+import { retrieveRelevantChunks } from "./services/retrievalService.js";
+import mongoose from "mongoose";
 
-const embedding = await generateEmbeddings("Operating Systems");
+dotenv.config();
 
-console.log(embedding.length);
-console.log(embedding.slice(0, 10));
+await connectDB();
+
+const documentId = "6a5b4d116f9b6104db15f073";
+
+const result = await retrieveRelevantChunks(
+    documentId,
+    "Explain Deadlock"
+);
+
+console.log(result);
