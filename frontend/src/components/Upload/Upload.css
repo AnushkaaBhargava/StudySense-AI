@@ -1,0 +1,76 @@
+.upload-section{
+
+    display:flex;
+    justify-content:center;
+
+    margin-top:80px;
+
+}
+
+
+.upload-box{
+
+    width:600px;
+
+    padding:40px;
+
+    text-align:center;
+
+    background:white;
+
+    border:2px dashed var(--primary);
+
+    border-radius:20px;
+
+}
+
+
+.upload-icon{
+
+    font-size:50px;
+
+    margin-bottom:20px;
+
+}
+
+
+.upload-box h2{
+
+    margin-bottom:15px;
+
+}
+
+
+.upload-box p{
+
+    color:var(--text-light);
+
+    line-height:1.6;
+
+    margin-bottom:30px;
+
+}
+
+
+input[type="file"]{
+
+    display:none;
+
+}
+
+
+.upload-box label{
+
+    display:inline-block;
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:12px 30px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}

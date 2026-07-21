@@ -1,0 +1,63 @@
+.navbar{
+    width:100%;
+    padding:25px 0;
+}
+
+.nav-content{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+
+.nav-content h2{
+
+    font-size:32px;
+
+}
+
+
+.nav-content span{
+
+    color:var(--primary);
+
+}
+
+
+.nav-links{
+
+    display:flex;
+    gap:40px;
+
+}
+
+
+.nav-links a{
+
+    transition:.3s;
+
+}
+
+
+.nav-links a:hover{
+
+    color:var(--primary);
+
+}
+
+
+.nav-content button{
+
+    background:var(--white);
+
+    border:1px solid var(--border);
+
+    padding:12px 28px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+}

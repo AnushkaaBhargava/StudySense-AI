@@ -1,0 +1,39 @@
+:root{
+    --primary:#059669;
+    --primary-dark:#047857;
+    --secondary:#10B981;
+    --background:#F8FAFC;
+    --card:#FFFFFF;
+    --text:#111827;
+    --text-light:#6B7280;
+    --border:#E5E7EB;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box
+
+}
+
+body{
+    font-family:Inter,sans-serif;
+    background:#F8FAFC;
+    color:#111827;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+}
+
+.container{
+    width:90%;
+    max-width:1250px;
+    margin:0 auto;
+}
