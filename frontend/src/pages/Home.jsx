@@ -1,20 +1,23 @@
+import { useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Hero from "../components/Hero/Hero";
+import Dashboard from "../components/Dashboard/Dashboard";
 
-function Home(){
+function Home() {
 
-    return(
+    const [document, setDocument] = useState(null);
 
+    return (
         <>
+            <Navbar />
 
-        <Navbar/>
-
-        <Hero/>
-
+            {
+                document
+                    ? <Dashboard document={document} />
+                    : <Hero setDocument={setDocument} />
+            }
         </>
-
-    )
-
+    );
 }
 
 export default Home;

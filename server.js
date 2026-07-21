@@ -4,12 +4,15 @@ import aiRoutes from "./routes/aiRoutes.js";
 import pdfRoutes from "./routes/pdfRoutes.js";
 import { connectDB } from "./config/db.js";
 import chatRoutes from "./routes/chatRoutes.js";
+import cors from "cors"
 
 dotenv.config();
 
 await connectDB();
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 

@@ -1,5 +1,5 @@
 import { retrieveRelevantChunks } from "./retrievalService.js";
-import { askGemini } from "./geminiService.js";
+import { askGroq } from "./groqService.js";
 
 export async function answerQuestion(documentId,question){
     const chunks=await retrieveRelevantChunks(
@@ -27,5 +27,5 @@ export async function answerQuestion(documentId,question){
      say "I could not find this information in the document."
          `;
 
-     return await askGemini(prompt);
+     return await askGroq(prompt);
 };

@@ -1,5 +1,5 @@
 import { extractTextFromPDF } from "../services/pdfService.js";
-import { askGemini } from "../services/geminiService.js";
+import { askGroq } from "../services/groqService.js";
 import {createChunks} from "../utils/createChunks.js";
 import Document from "../models/Document.js";
 import Chunk from "../models/Chunk.js";
@@ -26,7 +26,7 @@ export const uploadPDF = async (req, res) => {
        ${extractedText}
       `;
 
-      const summary=await askGemini(prompt);
+      const summary=await askGroq(prompt);
        
        await Promise.all(
        chunks.map(async (chunk) => {
