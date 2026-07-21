@@ -7,7 +7,6 @@ export async function answerQuestion(documentId,question){
         question
     );
 
-    console.log("Retrieved chunks:", chunks);
 
     const context=chunks.join("\n\n");
 

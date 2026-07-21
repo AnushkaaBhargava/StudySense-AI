@@ -4,8 +4,6 @@ import mongoose from "mongoose";
 
 export async function retrieveRelevantChunks(documentId,question){
 
-      console.log("Question in retrieval:", question);
-
     const queryEmbedding=await generateEmbeddings(question);
 
     const chunks=await Chunk.aggregate([
