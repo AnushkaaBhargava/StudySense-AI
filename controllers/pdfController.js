@@ -4,6 +4,8 @@ import {createChunks} from "../utils/createChunks.js";
 import Document from "../models/Document.js";
 import Chunk from "../models/Chunk.js";
 import {generateEmbeddings} from "../services/embeddingService.js";
+import { generateFlashcards } from "../services/geminiService.js";
+
 
 export const uploadPDF = async (req, res) => {
   try {
@@ -14,6 +16,15 @@ export const uploadPDF = async (req, res) => {
     }
 
     const extractedText = await extractTextFromPDF(req.file.buffer);
+
+    const flashcardsText = await generateFlashcards(extractedText);
+
+         const flashcards = JSON.parse(
+               flashcardsText
+               .replace(/```json/g, "")
+               .replace(/```/g, "")
+               .trim()
+           );
 
     const chunks=createChunks(extractedText);
 
@@ -36,7 +47,8 @@ export const uploadPDF = async (req, res) => {
 
       const document= await Document.create({
         fileName:req.file.originalname,
-        summary
+        summary,
+        flashcards
       });
 
       await Promise.all(

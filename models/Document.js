@@ -11,6 +11,12 @@ const documentSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+     flashcards: [
+      {
+        question: String,
+        answer: String,
+      },
+    ],
   },
   {
     timestamps: true,

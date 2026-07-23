@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { askGroq } from "./groqService.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -29,7 +30,7 @@ Notes:
 ${text}
 `;
 
-    return await askGemini(prompt);
+    return await askGroq(prompt);
 }
 
 export async function generateFlashcards(text) {
@@ -55,5 +56,5 @@ Notes:
 ${text}
 `;
 
-    return await askGemini(prompt);
+    return await askGroq(prompt);
 }

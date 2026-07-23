@@ -1,14 +1,11 @@
-import { extractTextFromPDF } from "../services/pdfService.js";
-import { generateFlashcards } from "../services/geminiService.js";
+import Document from "../models/Document.js";
 
-export const createFlashcards=async(req,res)=>{ 
+export const getFlashcards = async (req, res) => {
 
-        const text=await extractTextFromPDF(req.file.buffer);
-        const flashcards=await generateFlashcards(text);
+    const document = await Document.findById(req.params.documentId);
 
-        res.status(200).json({
-           flashcards
-        });
+    res.status(200).json({
+        flashcards: document.flashcards,
+    });
 
-    
-}
+};
