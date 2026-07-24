@@ -1,7 +1,11 @@
+import { useState } from "react";
 import Chat from "../Chat/Chat";
 import Flashcards from "../Flashcards/Flashcards";
+import "./Dashboard.css";
 
 function Dashboard({ document }) {
+
+    const [activeTab, setActiveTab] = useState("summary");
 
     return (
 
@@ -9,13 +13,49 @@ function Dashboard({ document }) {
 
             <h1>{document.fileName}</h1>
 
-            <h2>Summary</h2>
+            <div className="tabs">
 
-            <p>{document.summary}</p>
+                <button
+                    className={activeTab === "summary" ? "active" : ""}
+                    onClick={() => setActiveTab("summary")}
+                >
+                    Summary
+                </button>
 
-            <Flashcards documentId={document._id}/>
+                <button
+                    className={activeTab === "flashcards" ? "active" : ""}
+                    onClick={() => setActiveTab("flashcards")}
+                >
+                    Flashcards
+                </button>
 
-            <Chat documentId={document._id}/>
+                <button
+                    className={activeTab === "chat" ? "active" : ""}
+                    onClick={() => setActiveTab("chat")}
+                >
+                    AI Chat
+                </button>
+
+            </div>
+
+            <div className="dashboard-content">
+
+                {activeTab === "summary" && (
+                    <>
+                        <h2>Summary</h2>
+                        <p>{document.summary}</p>
+                    </>
+                )}
+
+                {activeTab === "flashcards" && (
+                    <Flashcards documentId={document._id} />
+                )}
+
+                {activeTab === "chat" && (
+                    <Chat documentId={document._id} />
+                )}
+
+            </div>
 
         </div>
 
