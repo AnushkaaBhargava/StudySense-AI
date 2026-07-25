@@ -5,7 +5,8 @@ import pandas as pd
 
 app=FastAPI()
 
-model = joblib.load("models/difficulty_model.pkl")
+difficulty_model = joblib.load("models/difficulty_model.pkl")
+study_time_model = joblib.load("models/study_time_model.pkl")
 
 class Features(BaseModel):
     pages:int
@@ -25,10 +26,12 @@ def predict(data:Features):
 
     }])
 
-    prediction=model.predict(df)[0]
+    prediction=difficulty_model.predict(df)[0]
+    study_time = study_time_model.predict(df)[0]
 
     return{
-        "difficulty":prediction
+        "difficulty":prediction,
+        "study_time":round(study_time)
     }
 
 

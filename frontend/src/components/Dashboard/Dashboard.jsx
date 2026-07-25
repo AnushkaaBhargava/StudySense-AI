@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Chat from "../Chat/Chat";
 import Flashcards from "../Flashcards/Flashcards";
+import StudyInsights from "../StudyInsights/StudyInsights";
 import "./Dashboard.css";
 
 function Dashboard({ document }) {
@@ -11,7 +12,11 @@ function Dashboard({ document }) {
 
         <div className="dashboard">
 
-            <h1>{document.fileName}</h1>
+            <div className="dashboard-header">
+
+                <h1>{document.fileName}</h1>
+
+            </div>
 
             <div className="tabs">
 
@@ -38,22 +43,29 @@ function Dashboard({ document }) {
 
             </div>
 
-            <div className="dashboard-content">
+            <div className="dashboard-layout">
 
-                {activeTab === "summary" && (
-                    <>
-                        <h2>Summary</h2>
-                        <p>{document.summary}</p>
-                    </>
-                )}
+                <div className="dashboard-main">
 
-                {activeTab === "flashcards" && (
-                    <Flashcards documentId={document._id} />
-                )}
+                    {activeTab === "summary" && (
+                        <>
+                            <h2>AI Summary</h2>
 
-                {activeTab === "chat" && (
-                    <Chat documentId={document._id} />
-                )}
+                            <p>{document.summary}</p>
+                        </>
+                    )}
+
+                    {activeTab === "flashcards" && (
+                        <Flashcards documentId={document._id} />
+                    )}
+
+                    {activeTab === "chat" && (
+                        <Chat documentId={document._id} />
+                    )}
+
+                </div>
+
+                <StudyInsights document={document} />
 
             </div>
 

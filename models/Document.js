@@ -21,7 +21,31 @@ const documentSchema = new mongoose.Schema(
     difficulty: {
     type: String,
     default: ""
-    }
+    },
+    studyTime: {
+    type: Number,
+    default: 0,
+    },
+
+    pages: {
+    type: Number,
+    default: 0
+     },
+
+     words: {
+    type: Number,
+    default: 0
+     },
+
+   technicalTerms: {
+    type: Number,
+    default: 0
+    },
+
+    avgSentenceLength: {
+    type: Number,
+    default: 0
+    },
   },
   {
     timestamps: true,

@@ -98,17 +98,19 @@ technicalWords.forEach(word => {
             );
 
     const difficulty = prediction.data.difficulty;
+    const studyTime = prediction.data.study_time;
 
     const chunks=createChunks(extractedText);
 
     console.log("Prediction response:", prediction.data);
 
     console.log("Difficulty:", difficulty);
+    console.log("Study Time:", studyTime);
+    console.log("Words:",words);
+    console.log("Pages:",pages);
+    console.log("Avg Sentence Length:",avgSentenceLength);
+    console.log("Technical Terms:",technicalTerms);
 
-    console.log("Pages:", pages);
-    console.log("Words:", words);
-    console.log("Average Sentence Length:", avgSentenceLength);
-    console.log("Technical Terms:", technicalTerms);
 
     const prompt= `
        You are an expert study assistant.
@@ -127,17 +129,17 @@ technicalWords.forEach(word => {
            })
          );
 
-         console.log("Saving document...");
-       console.log({
-          fileName: req.file.originalname,
-          difficulty
-          });
 
       const document= await Document.create({
         fileName:req.file.originalname,
         summary,
         flashcards,
-        difficulty
+        difficulty,
+        studyTime,
+        pages,
+        words,
+        technicalTerms,
+        avgSentenceLength
       });
 
       await Promise.all(
