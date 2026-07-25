@@ -22,7 +22,10 @@ export const extractTextFromPDF = async (buffer) => {
       extractedText += pageText + "\n\n";
     }
 
-    return extractedText.trim();
+      return {
+      text: extractedText.trim(),
+      pages: pdf.numPages,
+    };
   } catch (error) {
     throw new Error("Failed to extract text from PDF");
   }

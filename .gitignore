@@ -1,2 +1,5 @@
 node_modules
 .env
+
+# Trained ML models
+*.pkl

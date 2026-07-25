@@ -5,6 +5,8 @@ import Document from "../models/Document.js";
 import Chunk from "../models/Chunk.js";
 import {generateEmbeddings} from "../services/embeddingService.js";
 import { generateFlashcards } from "../services/geminiService.js";
+import { getDocument } from "pdfjs-dist";
+import axios from "axios";
 
 
 export const uploadPDF = async (req, res) => {
@@ -15,7 +17,65 @@ export const uploadPDF = async (req, res) => {
       });
     }
 
-    const extractedText = await extractTextFromPDF(req.file.buffer);
+    const { text: extractedText, pages } = await extractTextFromPDF(req.file.buffer);
+
+    const words = extractedText
+    .trim()
+    .split(/\s+/)
+    .length;
+
+    const sentences = extractedText
+    .split(/[.!?]+/)
+    .filter(sentence => sentence.trim() !== "");
+
+    const avgSentenceLength =
+    words / Math.max(sentences.length, 1);
+
+    const technicalWords = [
+
+"algorithm",
+"database",
+"thread",
+"process",
+"deadlock",
+"kernel",
+"cache",
+"memory",
+"sql",
+"mongodb",
+"react",
+"node",
+"express",
+"binary",
+"graph",
+"tree",
+"hadoop",
+"hive",
+"spark",
+"vector",
+"embedding",
+"transformer"
+
+];
+
+   const lowerText = extractedText.toLowerCase();
+
+    let technicalTerms = 0;
+
+technicalWords.forEach(word => {
+
+    const matches =
+        lowerText.match(
+            new RegExp(`\\b${word}\\b`, "g")
+        );
+
+    if(matches){
+
+        technicalTerms += matches.length;
+
+    }
+
+});
 
     const flashcardsText = await generateFlashcards(extractedText);
 
@@ -26,7 +86,29 @@ export const uploadPDF = async (req, res) => {
                .trim()
            );
 
+
+            const prediction = await axios.post(
+                "http://127.0.0.1:8000/predict",
+            {
+              pages,
+              words,
+              avg_sentence_length: avgSentenceLength,
+              technical_terms: technicalTerms
+             }
+            );
+
+    const difficulty = prediction.data.difficulty;
+
     const chunks=createChunks(extractedText);
+
+    console.log("Prediction response:", prediction.data);
+
+    console.log("Difficulty:", difficulty);
+
+    console.log("Pages:", pages);
+    console.log("Words:", words);
+    console.log("Average Sentence Length:", avgSentenceLength);
+    console.log("Technical Terms:", technicalTerms);
 
     const prompt= `
        You are an expert study assistant.
@@ -45,10 +127,17 @@ export const uploadPDF = async (req, res) => {
            })
          );
 
+         console.log("Saving document...");
+       console.log({
+          fileName: req.file.originalname,
+          difficulty
+          });
+
       const document= await Document.create({
         fileName:req.file.originalname,
         summary,
-        flashcards
+        flashcards,
+        difficulty
       });
 
       await Promise.all(

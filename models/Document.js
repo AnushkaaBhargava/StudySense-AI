@@ -17,6 +17,11 @@ const documentSchema = new mongoose.Schema(
         answer: String,
       },
     ],
+
+    difficulty: {
+    type: String,
+    default: ""
+    }
   },
   {
     timestamps: true,
