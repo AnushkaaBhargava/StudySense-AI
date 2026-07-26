@@ -1,6 +1,7 @@
 import "./Hero.css";
 import { useState } from "react";
 import api from "../../services/api";
+import robot from "../../assets/ai_mascot.png";
 
 function Hero({setDocument}){
 
@@ -118,68 +119,46 @@ Live Demo
 
 <div className="hero-right">
 
-<div className="dashboard">
+    <div className="dashboard">
 
-<div className="top">
+        <div className="top">
+            📄 OperatingSystems.pdf
+        </div>
 
-📄 OperatingSystems.pdf
+        <div className="tabs">
+            <span className="active-tab">Summary</span>
+            <span>Flashcards</span>
+            <span>Chat</span>
+        </div>
 
-</div>
+       <div className="summary">
 
-<div className="tabs">
+    <div className="summary-content">
 
-<span>Summary</span>
+        <div className="summary-text">
 
-<span>Flashcards</span>
+            <h4>AI Summary</h4>
 
-<span>Chat</span>
+            <ul>
+                <li>Process manages execution.</li>
+                <li>Threads share memory.</li>
+                <li>Deadlock requires 4 conditions.</li>
+                <li>Paging avoids fragmentation.</li>
+            </ul>
 
-</div>
+        </div>
 
-<div className="summary">
+        <img
+            src={robot}
+            alt="AI Robot"
+            className="summary-robot"
+        />
 
-<h4>
-
-AI Summary
-
-</h4>
-
-<ul>
-
-<li>Process manages execution.</li>
-
-<li>Threads share memory.</li>
-
-<li>Deadlock requires 4 conditions.</li>
-
-<li>Paging avoids fragmentation.</li>
-
-</ul>
-
-</div>
-
-<div className="chat-box">
-
-<p>
-
-<b>You</b>
-
-Explain deadlock
-
-</p>
-
-<p>
-
-<b>AI</b>
-
-Deadlock occurs when two or more
-processes wait indefinitely...
-
-</p>
+    </div>
 
 </div>
 
-</div>
+    </div>
 
 </div>
 
