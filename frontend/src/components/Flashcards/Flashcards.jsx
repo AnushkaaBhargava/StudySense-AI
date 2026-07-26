@@ -40,24 +40,25 @@ function Flashcards({documentId}){
 
             <h2>AI Flashcards</h2>
 
-            <div className="flashcard">
-                <h3>
-                    {card.question}
-                </h3>
+            <div className="flashcard-wrapper">
+                <div 
+                className={`flashcard ${showAnswer?"flip":""}`}
+                onClick={()=>setShowAnswer(!showAnswer)}
+                >
+                    <div className="flashcard-front">
+                        <h3>{card.question}</h3>
 
-                 {
-                    showAnswer &&
-                    <p>
-                        {card.answer}
-                    </p>
-                }
+                        <p className="tap-text">Click to reveal answer</p>
+                    </div>
+
+                    <div className="flashcard-back">
+                        <h3>Answer</h3>
+                        <p>{card.answer}</p>
+                    </div>
+                </div>
             </div>
+            
 
-            <button
-              onClick={()=>setShowAnswer(!showAnswer)}
-            >
-                {showAnswer ? "Hide Answer" : "Show Answer"}
-            </button>
 
             <div className="flashcard-buttons">
 

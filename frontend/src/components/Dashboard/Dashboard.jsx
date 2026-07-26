@@ -3,6 +3,7 @@ import Chat from "../Chat/Chat";
 import Flashcards from "../Flashcards/Flashcards";
 import StudyInsights from "../StudyInsights/StudyInsights";
 import "./Dashboard.css";
+import ReactMarkdown from "react-markdown";
 
 function Dashboard({ document }) {
 
@@ -14,7 +15,7 @@ function Dashboard({ document }) {
 
             <div className="dashboard-header">
 
-                <h1>{document.fileName}</h1>
+                <h3>{document.fileName}</h3>
 
             </div>
 
@@ -48,11 +49,11 @@ function Dashboard({ document }) {
                 <div className="dashboard-main">
 
                     {activeTab === "summary" && (
-                        <>
+                        <div className="summary-card">
                             <h2>AI Summary</h2>
 
-                            <p>{document.summary}</p>
-                        </>
+                            <ReactMarkdown>{document.summary}</ReactMarkdown>
+                        </div>
                     )}
 
                     {activeTab === "flashcards" && (

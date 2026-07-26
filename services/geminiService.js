@@ -21,10 +21,18 @@ export async function askGemini(prompt) {
 
 export async function generateSummary(text) {
 
-    const prompt = `
-You are an expert study assistant.
+   const prompt = `
+    You are an expert study assistant.
 
-Summarize the following notes into concise bullet points.
+    Summarize the notes using proper Markdown.
+
+    Rules:
+   - Use ## for section headings.
+   - Use bullet points.
+   - Keep each bullet under 20 words.
+   - Highlight important terms using **bold**.
+   - End with a "Key Takeaways" section.
+   - Do not write long paragraphs.
 
 Notes:
 ${text}
