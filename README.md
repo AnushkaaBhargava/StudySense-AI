@@ -113,7 +113,7 @@ npm run dev
 
 The landing page where users can upload study notes and explore the application's AI-powered features.
 
-![Home Page](screenshots/studysense_home.png)
+![Home Page](backend/screenshots/studysense_home.png)
 
 ---
 
@@ -121,7 +121,7 @@ The landing page where users can upload study notes and explore the application'
 
 A structured AI-generated summary highlighting the most important concepts from the uploaded PDF.
 
-![AI Summary](screenshots/summary.png)
+![AI Summary](backend/screenshots/summary.png)
 
 ---
 
@@ -129,7 +129,7 @@ A structured AI-generated summary highlighting the most important concepts from 
 
 Interactive flashcards generated automatically to help users revise important concepts.
 
-![AI Flashcards](screenshots/flashcard.png)
+![AI Flashcards](backend/screenshots/flashcard.png)
 
 ---
 
@@ -137,7 +137,7 @@ Interactive flashcards generated automatically to help users revise important co
 
 Ask questions about the uploaded document and receive accurate, context-aware responses powered by RAG.
 
-![AI Chat](screenshots/AI_chat.png)
+![AI Chat](backend/screenshots/AI_chat.png)
 
 ---
 
@@ -205,9 +205,8 @@ These insights help users understand the complexity of the study material before
 
 ---
 
-## 👩‍💻 Author
+## Author
 
 **Anushkaa Bhargava**
----
 
-### ⭐ If you found this project interesting, consider giving it a star on GitHub!
+---
