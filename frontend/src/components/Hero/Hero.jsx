@@ -35,9 +35,16 @@ function Hero({setDocument}){
 
     } catch (error) {
 
-        console.log(error);
 
-    } finally {
+    console.log(error);
+
+    if (error.response) {
+        console.log("Status:", error.response.status);
+        console.log("Response:", error.response.data);
+    }
+
+}
+ finally {
 
         setLoading(false);
 

@@ -21,7 +21,7 @@ export async function register(req,res){
         const user=await User.create({
             name,
             email,
-            password
+            password:hashedPassword
         });
 
          res.status(201).json({
@@ -50,6 +50,8 @@ export async function login(req,res){
     try{
 
         const {email,password}=req.body;
+        console.log("Email:", email);
+        console.log("Password:", password);
         const user=await User.findOne({email});
 
         if (!user) {

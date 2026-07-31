@@ -16,7 +16,7 @@ export const uploadPDF = async (req, res) => {
         message: "No PDF uploaded",
       });
     }
-
+    console.log("1");
     const { text: extractedText, pages } = await extractTextFromPDF(req.file.buffer);
 
     const words = extractedText
@@ -76,7 +76,8 @@ technicalWords.forEach(word => {
     }
 
 });
-
+    
+    console.log("2");
     const flashcardsText = await generateFlashcards(extractedText);
 
          const flashcards = JSON.parse(
@@ -86,7 +87,7 @@ technicalWords.forEach(word => {
                .trim()
            );
 
-
+            console.log("3");
             const prediction = await axios.post(
                 "http://127.0.0.1:8000/predict",
             {
@@ -120,17 +121,20 @@ technicalWords.forEach(word => {
        Notes:
        ${extractedText}
       `;
-
+      
+      console.log("4");
       const summary=await askGroq(prompt);
-       
+        
+        console.log("5");
        await Promise.all(
        chunks.map(async (chunk) => {
           chunk.embedding = await generateEmbeddings(chunk.text);
            })
          );
 
-
+      console.log("6");
       const document= await Document.create({
+        userId:req.user.id,
         fileName:req.file.originalname,
         summary,
         flashcards,
@@ -142,6 +146,7 @@ technicalWords.forEach(word => {
         avgSentenceLength
       });
 
+      console.log("7");
       await Promise.all(
         chunks.map((chunk) =>
           Chunk.create({
@@ -168,3 +173,27 @@ technicalWords.forEach(word => {
     });
   }
 };
+
+export async function getMyDocuments(req,res){
+
+  try{
+     const documents=await Document.find({
+     userId:req.user.id
+     })
+    .select("fileName createdAt")
+    .sort({createdAt:-1});
+
+    res.json(documents);
+
+  }catch(error){
+
+    console.log(error);
+
+      res.status(500).json({
+
+            message:"Server Error"
+
+      });
+
+  }
+}
